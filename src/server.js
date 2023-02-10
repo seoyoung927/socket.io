@@ -24,6 +24,10 @@ wsServer.on("connection",socket=>{
     socket.on("disconnecting",()=>{
         socket.rooms.forEach(room=>socket.to(room).emit("bye"))
     });
+    socket.on("new_message",(msg,room,done)=>{
+        socket.to(room).emit("new_message",msg);
+        done();
+    })
 });
 // const wss = new WebSocket.Server({server}); //http 서버위에 webSocket 서버를 만들 수 있도록 한 것
 
